@@ -87,6 +87,9 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+#C and C++ bulid files
+.debug
+
 .sublime-project
 .tern-project
 .project
