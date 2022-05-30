@@ -101,6 +101,7 @@ x64/
 **/*.vcxproj.*
 **/*.i
 **/*.obj
+*.bak
 
 .sublime-project
 .tern-project
