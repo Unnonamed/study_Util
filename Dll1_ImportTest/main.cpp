@@ -1,42 +1,42 @@
 /*
-* ¾Ï½ÃÀû¸µÅ©(ÇÁ·Î¼¼½º°¡ ½ÃÀÛÇÒ ¶§ dll °¡Á®¿È)
-* ¾Ï½ÃÀû¸µÅ©¿¡´Â dllÆÄÀÏ°ú libÆÄÀÏÀÌ ¸ðµÎ ÇÊ¿äÇÏ´Ù
-* dllÆÄÀÏ ÂÊ¿¡¼­´Â dll¿¡ ÀÖ´Â ¾î¶²ÇÔ¼ö¸¦ »ç¿ëÇÑ´Ù°í È£ÃâÀ» ±¸ÇöÇØÁÖ´Â ºÎºÐÀÌ ÀÖ¾î¾ßÇÑ´Ù.
-* (Çì´õ ÆÄÀÏ .h ÆÄÀÏ·Î ´øÁ®ÁÖ±â °¡´É)
-* ÇÁ·Î±×·¥ ½ÇÇà½Ã dll ÆÄÀÏ ºÒ·¯¿Â ÈÄ È£ÃâÇÑ ÇÔ¼ö°¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù. ¾øÀ¸¸é kill
+* ì•”ì‹œì ë§í¬(í”„ë¡œì„¸ìŠ¤ê°€ ì‹œìž‘í•  ë•Œ dll ê°€ì ¸ì˜´)
+* ì•”ì‹œì ë§í¬ì—ëŠ” dllíŒŒì¼ê³¼ libíŒŒì¼ì´ ëª¨ë‘ í•„ìš”í•˜ë‹¤
+* dllíŒŒì¼ ìª½ì—ì„œëŠ” dllì— ìžˆëŠ” ì–´ë–¤í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤ê³  í˜¸ì¶œì„ êµ¬í˜„í•´ì£¼ëŠ” ë¶€ë¶„ì´ ìžˆì–´ì•¼í•œë‹¤.
+* (í—¤ë” íŒŒì¼ .h íŒŒì¼ë¡œ ë˜ì ¸ì£¼ê¸° ê°€ëŠ¥)
+* í”„ë¡œê·¸ëž¨ ì‹¤í–‰ì‹œ dll íŒŒì¼ ë¶ˆëŸ¬ì˜¨ í›„ í˜¸ì¶œí•œ í•¨ìˆ˜ê°€ ìžˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤. ì—†ìœ¼ë©´ kill
 * 
-* ¸í½ÃÀû¸µÅ©(ÇÁ·Î¼¼½º ½ÇÇà ÁßÀÏ¶§ dll °¡Á®¿È)
-* ½ÇÇàÁöÁ¡±îÁö ¹«½¼ dllÀ» ºÒ·¯¿ÃÁö ¸ð¸£´Â °æ¿ì »ç¿ë, ¼³Á¤ÆÄÀÏ¿¡ µû¶ó dllÆÄÀÏÀÌ ¹Ù²î´Â °æ¿ì
-* ¼¼°¡Áö ÇÔ¼ö°¡ ÇÊ¿äÇÏ´Ù (LoadLibrary, GetProcAddress, FreeLibrary)
+* ëª…ì‹œì ë§í¬(í”„ë¡œì„¸ìŠ¤ ì‹¤í–‰ ì¤‘ì¼ë•Œ dll ê°€ì ¸ì˜´)
+* ì‹¤í–‰ì§€ì ê¹Œì§€ ë¬´ìŠ¨ dllì„ ë¶ˆëŸ¬ì˜¬ì§€ ëª¨ë¥´ëŠ” ê²½ìš° ì‚¬ìš©, ì„¤ì •íŒŒì¼ì— ë”°ë¼ dllíŒŒì¼ì´ ë°”ë€ŒëŠ” ê²½ìš°
+* ì„¸ê°€ì§€ í•¨ìˆ˜ê°€ í•„ìš”í•˜ë‹¤ (LoadLibrary, GetProcAddress, FreeLibrary)
 * 
 */
 #include <iostream>
 #include <stdio.h>
+#include "windows.h"
 
-
-//¾Ï½ÃÀû¸µÅ© - 1.Çì´õÆÄÀÏ µî·ÏÇÏ±â(Çì´õ ÆÄÀÏÀ» ¸ð¸¦¶§ »ç¿ë°¡´ÉÇÑÁö?)
+// -----------------------------------------------------------------------------------------
+////ì•”ì‹œì ë§í¬ - 1.í—¤ë”íŒŒì¼ ë“±ë¡í•˜ê¸°(í—¤ë” íŒŒì¼ì„ ëª¨ë¥¼ë•Œ ì‚¬ìš©ê°€ëŠ¥í•œì§€?)
 //#include "../Dll1_ExprotTest/imageDll.h"
-//¾Ï½ÃÀû¸µÅ© - 2.ÇÔ¼ö µî·ÏÇØÁÖ±â(ÇÏ³ª¾¿ ´Ù µî·ÏÇØ¾ßÇÔ)
-//extern "C" __declspec(dllimport) double Sum(double a, double b);
-//extern __declspec(dllimport) int x;
-//extern __declspec(dllimport) int fnExample(void);
-
 //#pragma comment(lib, "../Debug/Dll1_ExprotTest.lib")
-
+//
+////ì•”ì‹œì ë§í¬ - 2.í•¨ìˆ˜ ë“±ë¡í•´ì£¼ê¸°(í•˜ë‚˜ì”© ë‹¤ ë“±ë¡í•´ì•¼í•¨)
+////extern "C" __declspec(dllimport) double Sum(double a, double b);
+////extern __declspec(dllimport) int x;
+////extern __declspec(dllimport) int fnExample(void);
+//
+//
 //int main() {
-//	//Ã¹¹øÂ° ¿¹Á¦
+//	//ì²«ë²ˆì§¸ ì˜ˆì œ
 //	std::cout << "x: " << x << std::endl;
 //	std::cout << "fnExample: " << fnExample() << std::endl;
 //
-//	//µÎ¹øÂ° ¿¹Á¦
+//	//ë‘ë²ˆì§¸ ì˜ˆì œ
 //	std::cout << "Sum: " << Sum(5.0, 1.0) << std::endl;
 //}
 
 // -----------------------------------------------------------------------------------------
-#include "windows.h"
-
-//1.¸í½ÃÀû¸µÅ© - ÇÔ¼öÆ÷ÀÎÅÍ
-//Æ÷ÀÎÅÍ (*)´Â ¾Æ½Ã´Ù½ÃÇÇ NULLÀ» Çã¿ëÇÏÁö¸¸ ·¹ÆÛ·±½º (&)´Â NULLÀÌ Çã¿ëµÇÁö ¾Ê½À´Ï´Ù.
+//ëª…ì‹œì ë§í¬ - í•¨ìˆ˜í¬ì¸í„°
+//í¬ì¸í„° (*)ëŠ” ì•„ì‹œë‹¤ì‹œí”¼ NULLì„ í—ˆìš©í•˜ì§€ë§Œ ë ˆí¼ëŸ°ìŠ¤ (&)ëŠ” NULLì´ í—ˆìš©ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
 
 typedef double(*pFunctionDLL)(double, double);
 pFunctionDLL pFunction = NULL;

@@ -97,8 +97,8 @@ x64/
 **/x64/
 
 #files
-**/*.vcxproj
-**/*.vcxproj.*
+#**/*.vcxproj
+#**/*.vcxproj.*
 **/*.i
 **/*.obj
 *.bak
